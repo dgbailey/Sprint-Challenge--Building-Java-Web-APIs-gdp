@@ -8,7 +8,7 @@
         <version>2.1.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.lambdaschool</groupId>
+    <groupId>com.lambdaschool.sprint.gdp</groupId>
     <artifactId>gdp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>gdp</name>

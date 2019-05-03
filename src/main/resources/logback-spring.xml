@@ -78,16 +78,16 @@
 
     <logger name="org.apache.catalina" level="INFO">
         <appender-ref ref="TOMCAT" />
-        <appender-ref ref="STDOUT" />
+<!--        <appender-ref ref="STDOUT" />-->
     </logger>
 
     <logger name="org.apache.coyote" level="INFO">
         <appender-ref ref="TOMCAT" />
-        <appender-ref ref="STDOUT" />
+<!--        <appender-ref ref="STDOUT" />-->
     </logger>
 
     <logger name="org.apache.tomcat" level="INFO">
         <appender-ref ref="TOMCAT" />
-        <appender-ref ref="STDOUT" />
+<!--        <appender-ref ref="STDOUT" />-->
     </logger>
 </configuration>
