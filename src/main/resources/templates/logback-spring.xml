@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd'T'HH:mm:ss.sss}] [%25.25class] [%thread] [%line] [%-5level] %m%n</pattern>
+        </encoder>
+    </appender>
+
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>/var/tmp/mylambdajx.log</File>
+            <append>true</append>
+            <encoder>
+                <pattern>[%d{yyyy-MM-dd'T'HH:mm:ss.sss}] [%25.25class] [%thread] [%line] [%-5level] %m%n</pattern>
+            </encoder>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
+                <!-- rollover daily -->
+                <fileNamePattern>/var/logs/lambdajx.%d{yyyy-MM-dd HH}.%i.txt</fileNamePattern>
+                <maxFileSize>10MB</maxFileSize>
+
+                <!-- keep 30 days' worth of history -->
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>3GB</totalSizeCap>
+            </rollingPolicy>
+        </appender>
+
+
+    <appender name="TOMCAT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>/var/tmp/lambdajxTomcat.log</File>
+        <append>true</append>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd'T'HH:mm:ss.sss'Z'}] [%C] [%t] [%L] [%-5p] %m%n</pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
+            <!-- rollover daily -->
+            <fileNamePattern>/var/tmp/lambdajxTomcat.%d{yyyy-MM-dd HH}.%i.txt</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+    <!--    Your dog controller is at the root level. Hence your root level appender with ref=FILE is going to send logs to that file.-->
+    <!--    You need to move the controller out of the root in order to set up a custom config for its logs-->
+
+
+    <!--    <logger name="com.lambdaschool.webemployees.Services.MessageSender" level="INFO">-->
+    <!--        <appender-ref ref="STDOUT"/>-->
+    <!--    </logger>-->
+
+    <logger name="org.springframework.boot" level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+        <logger name="com.lambdaschool.sprint.gdp.gdp.Controller.GdpController" level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+
+    <!--the below was resulting in duplicate logs-->
+    <!--    <logger name="com.lambdaschool.projectrestdogs.DogController" level="INFO">-->
+    <!--        <appender-ref ref="STDOUT"/>-->
+    <!--    </logger>-->
+
+
+
+    <logger name="org.apache.catalina" level="INFO">
+        <appender-ref ref="TOMCAT" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.apache.coyote" level="INFO">
+        <appender-ref ref="TOMCAT" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.apache.tomcat" level="INFO">
+        <appender-ref ref="TOMCAT" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+</configuration>
